@@ -1,31 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'ink'
 
-class Counter extends Component {
-	constructor(props) {
-		super()
-
-		this.state = {
-			i: props.i,
-		}
-	}
-
-	render() {
-		return <Box>Iteration #{this.state.i}</Box>
-	}
-
-	componentDidMount() {
-		this.timer = setInterval(() => {
-			this.setState(prevState => ({
-				i: prevState.i + 1,
-			}))
+function Counter(props) {
+	const [i, setI] = useState(props.i)
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setI(v => v + 1)
 		}, 100)
-	}
 
-	componentWillUnmount() {
-		clearInterval(this.timer)
-	}
+		return () => {
+			clearInterval(timer)
+		}
+	}, [])
+
+	return <Box>Iteration #{i}</Box>
 }
 
 Counter.propTypes = {

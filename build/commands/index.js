@@ -135,30 +135,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-class Counter extends _react.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      i: props.i
-    };
-  }
-
-  render() {
-    return _react.default.createElement(_ink.Box, null, "Iteration #", this.state.i);
-  }
-
-  componentDidMount() {
-    this.timer = setInterval(() => {
-      this.setState(prevState => ({
-        i: prevState.i + 1
-      }));
+function Counter(props) {
+  const [i, setI] = (0, _react.useState)(props.i);
+  (0, _react.useEffect)(() => {
+    const timer = setInterval(() => {
+      setI(v => v + 1);
     }, 100);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+  return _react.default.createElement(_ink.Box, null, "Iteration #", i);
 }
 
 Counter.propTypes = {
