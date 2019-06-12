@@ -1,0 +1,20 @@
+{
+	"commands": [
+		{
+			"path": "index.js",
+			"name": "index",
+			"description": "",
+			"args": [
+				{
+					"key": "i",
+					"type": "number",
+					"description": "Start from",
+					"isRequired": true,
+					"aliases": [],
+					"positional": false
+				}
+			],
+			"subCommands": []
+		}
+	]
+}
